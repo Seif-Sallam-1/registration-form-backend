@@ -25,6 +25,16 @@ export const registrationSchema = {
         technicalBackground: joi.string().max(200).optional(), 
         workshop: joi.string().lowercase().valid(...workshopList).required() 
     }).required(),
+    file:joi.object({
+  size:joi.number().positive().required(),
+  mimetype:joi.string().required(),
+  encoding:joi.string().required(),
+  originalname:joi.string().required(),
+  fieldname:joi.string().required(),
+  buffer:joi.binary().required()
+}).messages({
+  "any.required":"file is required"
+})
 };
 
 export const updateRegistrationSchema = {
@@ -41,7 +51,17 @@ export const updateRegistrationSchema = {
     }).min(1).required(),
     params: joi.object({
         id: joi.string().custom(customId).required()
-    }).required()
+    }).required(),
+    file:joi.object({
+  size:joi.number().positive(),
+  mimetype:joi.string(),
+  encoding:joi.string(),
+  originalname:joi.string(),
+  fieldname:joi.string(),
+  buffer:joi.binary()
+}).messages({
+  "any.required":"file is required"
+})
 };
 
    export const getRegistrationSchema = {

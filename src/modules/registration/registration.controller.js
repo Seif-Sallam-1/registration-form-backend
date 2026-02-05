@@ -2,11 +2,12 @@ import { Router } from "express";
 import * as RS from "./registration.service.js";
 import * as RV from "./registration.validation.js";
 import { validation } from "../../middleware/validation.js";
+import { fileValidation, multerCloud } from "../../middleware/multer.js";
 
 
 const registrationRouter = Router();
 
-registrationRouter.post("/register",validation(RV.registrationSchema),RS.register);
+registrationRouter.post("/register",multerCloud({fileTypes:fileValidation.file}).single("CV"),validation(RV.registrationSchema),RS.register);
 registrationRouter.get("/{:id}",validation(RV.getRegistrationSchema), RS.getRegistration);
 registrationRouter.patch("/{:id}",validation(RV.updateRegistrationSchema) ,RS.updateRegistration);
 
