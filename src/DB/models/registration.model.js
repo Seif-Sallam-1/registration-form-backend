@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { lowercase } from "zod";
 
 const registrationSchema = new mongoose.Schema({
     name: {
@@ -19,13 +20,15 @@ const registrationSchema = new mongoose.Schema({
         type: String, 
         required: true,
         trim: true,
-        maxLength: 11,
+        maxLength: 16,
     },
     ID: {
         type: String, 
         required: true,
         unique: true,
         trim: true,
+        // maxLength: 14,
+        minLength: 14,
         maxLength: 14,
     },
     university: {
@@ -57,17 +60,18 @@ const registrationSchema = new mongoose.Schema({
     workshop: {
         type: String,
         enum: [
-            "Computer arithmetic", 
-            "System verilog verification", 
-            "Digital design", 
-            "UVM", 
-            "OOP", 
-            "Automation & control", 
-            "Analog IC fundamentals", 
-            "Analog/Mixed-signals", 
-            "KNX"
+            "computer arithmetic", 
+            "system verilog verification", 
+            "digital design", 
+            "uvm", 
+            "oop", 
+            "automation & control", 
+            "analog ic fundamentals", 
+            "analog/mixed-signals", 
+            "knx"
         ],
         required: true,
+        lowercase: true
     }
 }, { timestamps: true });
 
